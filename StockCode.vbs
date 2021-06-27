@@ -13,9 +13,6 @@ Dim totalvolume As Double
 totalvolume = 0
 
 
-
-
-
 'headers and labels
 Cells(1, 9).Value = "Ticker"
 Cells(1, 10).Value = "Yearly Change"
@@ -93,7 +90,31 @@ For j = 2 To LastRow
     
 Next j
 
+'greatest increse, decrease, and total volume
+LastRow = Cells(Rows.Count, 11).End(xlUp).Row
 
+Range("Q2").NumberFormat = "%0.00"
+Range("Q3").NumberFormat = "%0.00"
 
+For k = 2 To LastRow
+
+    If Cells(k + 1, 11).Value > Range("Q2").Value Then
+    Range("Q2").Value = Cells(k + 1, 11).Value
+    Range("P2").Value = Cells(k + 1, 9).Value
+    End If
+     
+    If Cells(k + 1, 11).Value < Range("Q3").Value Then
+    Range("Q3").Value = Cells(k + 1, 11).Value
+    Range("P3").Value = Cells(k + 1, 9).Value
+    End If
+   
+    If Cells(k + 1, 12).Value > Range("Q4").Value Then
+    Range("Q4").Value = Cells(k + 1, 12).Value
+    Range("P4").Value = Cells(k + 1, 9).Value
+    End If
+
+Next k
+
+Columns("I:Q").AutoFit
 
 End Sub
