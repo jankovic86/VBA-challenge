@@ -1,5 +1,5 @@
 Sub stocks()
-
+'variables and default values
 Dim summary_table_row As Integer
 summary_table_row = 2
 Dim ticker As String
@@ -7,29 +7,33 @@ Dim yearlychange As Double
 Dim percentchange As Double
 Dim closeprice As Double
 closeprice = 0
-
 Dim openprice As Double
 openprice = Range("C2").Value
-
-
-
-
 Dim totalvolume As Double
 totalvolume = 0
 
 
 
+
+
+'headers and labels
 Cells(1, 9).Value = "Ticker"
 Cells(1, 10).Value = "Yearly Change"
 Cells(1, 11).Value = "Percent Change"
 Cells(1, 12).Value = "Total Stock Volume"
+Cells(1, 16).Value = "Ticker"
+Cells(1, 17).Value = "Value"
+Cells(2, 15).Value = "Greatest % Increase"
+Cells(3, 15).Value = "Greatest % Decrease"
+Cells(4, 15).Value = "Greatest Total Value"
 
+'formating for percentage with two decimal places
 Range("K2:K290").NumberFormat = "0.00%"
 
-
+'defining last row
 LastRow = Cells(Rows.Count, 1).End(xlUp).Row
 
-
+'loop through columns to complete requested tasks
 For i = 2 To LastRow
     
 
@@ -43,11 +47,19 @@ For i = 2 To LastRow
         
         totalvolume = totalvolume + Cells(i, 7).Value
         yearlychange = closeprice - openprice
-        percentchange = yearlychange / openprice
         
+            If openprice = 0 Then
+            percentchange = 0
+            
+            Else
+            
+            openprice = Range("C2").Value
+            percentchange = yearlychange / openprice
+            
+            End If
+            
         
-        
-        
+       'write data to cells
         Range("I" & summary_table_row).Value = ticker
         Range("L" & summary_table_row).Value = totalvolume
         Range("J" & summary_table_row).Value = yearlychange
@@ -58,9 +70,6 @@ For i = 2 To LastRow
     
         openprice = Cells(i + 1, 3).Value
         
-       
-        
-        
         Else
         totalvolume = totalvolume + Cells(i, 7).Value
         
@@ -68,9 +77,11 @@ For i = 2 To LastRow
 
 Next i
 
+
+'conditional color formatting for positive and negative values
 For j = 2 To LastRow
 
-    If Cells(j, 10).Value > 0 Then
+    If Cells(j, 10).Value >= 0 Then
         
         Cells(j, 10).Interior.ColorIndex = 4
        
@@ -78,10 +89,11 @@ For j = 2 To LastRow
         
         Cells(j, 10).Interior.ColorIndex = 3
     
-       
     End If
-
+    
 Next j
+
+
 
 
 End Sub
