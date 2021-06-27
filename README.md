@@ -14,4 +14,7 @@ Create a script that will loop through all the stocks for one year and output th
 - Your solution will also be able to return the stock with the "Greatest % increase", "Greatest % decrease" and "Greatest total volume". The solution will look as follows:
 - Make the appropriate adjustments to your VBA script that will allow it to run on every worksheet, i.e., every year, just by running the VBA script once.
 
+**SUBMISSION**
 
+- Screenshots for each year of results on the Multi Year Stock Data uploaded to the Screenshots folder.
+- Seperate VBA file has been created and uploaded with script that was used to complete instructions above.
